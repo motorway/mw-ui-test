@@ -1,0 +1,34 @@
+@use '../../styles/core' as core;
+@use '../../styles/color' as color;
+
+.input {
+  border: 1px solid color.$light-grey-3;
+  border-radius: core.$radius;
+  padding: core.$space;
+  color: color.$white;
+  background-color: transparent;
+  width: 100%;
+	outline: none;
+}
+.typeahead {
+  color: color.$light-grey-1;
+}
+.listbox {
+  border-radius: core.$radius;
+  background-color: color.$dark-grey-3;
+  color: color.$white;
+  width: 100%;
+}
+.item,
+.noItems {
+  padding: core.$space;
+}
+.item:not(:last-of-type) {
+  border-bottom: 1px solid color.$light-grey-1;
+}
+.highlightedItem {
+  cursor: pointer;
+  background-color: color.$dark-grey-2;
+  padding: core.$space;
+  border-radius: core.$radius;
+}

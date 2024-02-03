@@ -12,21 +12,24 @@ const Task2: React.FC = () => {
   const { searchTerm } = useSearchHandler();
   const { isLoading, data: cars, error, status } = useGetCars({ tag: searchTerm });
 
-  return (
-    <div className={styles.task2}>
-      {isLoading ? <Loader /> : null}
-      {status === 'pending' ? <DefaultState /> : null}
-      {status === 'success' && cars.length === 0 ? <EmptyState /> : null}
-      {status === 'error' ? <ErrorState error={error} /> : null}
+  let content: React.ReactNode;
+  if (status === 'pending') {
+    if (!isLoading) content = <DefaultState />;
+    else content = <Loader />;
+  } else if (status === 'error') {
+    content = <ErrorState error={error} />;
+  } else if (Array.isArray(cars) && cars.length === 0) {
+    content = <EmptyState />;
+  } else if (Array.isArray(cars) && cars.length > 0) {
+    content = (
+      <>
+        <h2 className={styles.title}>{searchTerm}</h2>
+        <CarList cars={cars} />
+      </>
+    );
+  }
 
-      {status === 'success' && Array.isArray(cars) && cars.length > 0 && (
-        <>
-          <h2 className={styles.title}>{searchTerm}</h2>
-          <CarList cars={cars} />
-        </>
-      )}
-    </div>
-  );
+  return <div className={styles.task2}>{content}</div>;
 };
 
 export default Task2;
@@ -35,7 +38,7 @@ function CarList(props: { cars: Car[] }) {
   return (
     <div className={styles.content}>
       {props.cars.map((car) => (
-        <img key={car.id} src={`${car.url}.webp`} alt={car.alt_description} />
+        <img key={car.id} src={`${car.url}.webp`} alt={car.alt_description} loading="lazy" />
       ))}
     </div>
   );
