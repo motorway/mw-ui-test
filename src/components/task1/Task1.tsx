@@ -33,23 +33,21 @@ const Task1: React.FC = () => {
   const handleOnSelect = (item: string) => setSearchTerm(item);
 
   return (
-    <div className="Task1">
-      <div style={{ width: 400 }}>
-        <Turnstone
-          name="search"
-          listbox={listbox}
-          maxItems={maxItems}
-          onChange={handleOnSearch}
-          onSelect={handleOnSelect}
-          noItemsMessage="no items found"
-          placeholder="Search for vehicles"
-          styles={styles}
-          matchText
-          typeahead
-          autoFocus
-          listboxIsImmutable
-        />
-      </div>
+    <div className={styles.task1}>
+      <Turnstone
+        name="search"
+        listbox={listbox}
+        maxItems={maxItems}
+        onChange={handleOnSearch}
+        onSelect={handleOnSelect}
+        noItemsMessage="no items found"
+        placeholder="Search for vehicles"
+        styles={styles}
+        matchText
+        typeahead
+        autoFocus
+        listboxIsImmutable
+      />
     </div>
   );
 };

@@ -1,6 +1,9 @@
 @use '../../styles/core' as core;
 @use '../../styles/color' as color;
 
+.task1 {
+  width: 400px;
+}
 .input {
   border: 1px solid color.$light-grey-3;
   border-radius: core.$radius;
@@ -8,7 +11,7 @@
   color: color.$white;
   background-color: transparent;
   width: 100%;
-	outline: none;
+  outline: none;
 }
 .typeahead {
   color: color.$light-grey-1;
