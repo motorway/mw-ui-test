@@ -1,5 +1,10 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
 import Header from '../header/Header';
 import Task2 from '../task2/Task2';
+
+import { SearchProvider } from '../../context/SearchContext';
 
 import styles from './App.module.scss';
 
@@ -12,13 +17,20 @@ import styles from './App.module.scss';
  */
 
 const App: React.FC = () => {
+  const queryClient = new QueryClient();
+
   return (
-    <>
-      <Header />
-      <main className={styles.main}>
-        <Task2 />
-      </main>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <SearchProvider>
+        <Header />
+
+        <main className={styles.main}>
+          <Task2 />
+        </main>
+      </SearchProvider>
+
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 };
 

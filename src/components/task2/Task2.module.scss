@@ -1,0 +1,75 @@
+@use '../../styles/core' as core;
+@use '../../styles/color' as color;
+
+.task2 {
+  display: flex;
+  flex-direction: column;
+  gap: core.$space * 6;
+  transition: all 0.3s ease;
+	padding: core.$space * 6 0;
+
+  .loaderContainer {
+    display: grid;
+    place-items: center;
+    padding-top: core.$space * 15;
+
+    .loader {
+      border: 12px solid color.$light-grey-1;
+      border-radius: 50%;
+      border-top: 12px solid color.$dark-grey-1;
+      width: 80px;
+      height: 80px;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+
+      @-webkit-keyframes spin {
+        0% {
+          -webkit-transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
+  }
+
+  .title {
+    font-size: core.$space * 6;
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: 300px;
+    gap: core.$space * 6;
+
+    img {
+      display: block;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      border-radius: core.$radius;
+    }
+  }
+
+  .defaultState {
+    padding-top: core.$space * 10;
+    display: grid;
+    place-items: center;
+    gap: core.$space * 2;
+
+    h2 {
+      text-align: center;
+      line-height: normal;
+    }
+  }
+}
