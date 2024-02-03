@@ -7,7 +7,7 @@ import { QUERY_KEYS } from '../../lib/query/keys';
 import { fetchCars } from '../../lib/query/cars';
 import { useSearchHandler } from '../../context/SearchContext';
 
-import styles from './Task2.module.scss';
+import styles from './Task1.module.scss';
 
 const maxItems = 10;
 
