@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SearchIcon } from '../assets/icons/search-icon';
+import SearchIcon from '../../assets/icons/search.svg?react';
 import { useSearchHandler } from '../../context/SearchContext';
 import { useGetCars } from '../../lib/query/cars';
 import { Car } from '../../types/cars';
@@ -10,29 +10,45 @@ import styles from './Task2.module.scss';
 // Please refer to task 2. Realtime search results of readme.md
 const Task2: React.FC = () => {
   const { searchTerm } = useSearchHandler();
-  const { isLoading, data: cars, error, status } = useGetCars({ tag: searchTerm });
+  const { data: cars, error, status, isLoading } = useGetCars({ tag: searchTerm });
 
-  let content: React.ReactNode;
+  return (
+    <div className={styles.task2}>
+      <RenderedCarList status={status} cars={cars} error={error} isLoading={isLoading} title={searchTerm} />
+    </div>
+  );
+};
+
+export default Task2;
+
+interface RenderedCarListProps {
+  status: string;
+  isLoading: boolean;
+  error: Error | null;
+  cars: Car[];
+  title: string;
+}
+
+function RenderedCarList(props: RenderedCarListProps) {
+  const { status, isLoading, error, cars, title } = props;
+
   if (status === 'pending') {
-    if (!isLoading) content = <DefaultState />;
-    else content = <Loader />;
-  } else if (status === 'error') {
-    content = <ErrorState error={error} />;
-  } else if (Array.isArray(cars) && cars.length === 0) {
-    content = <EmptyState />;
-  } else if (Array.isArray(cars) && cars.length > 0) {
-    content = (
+    return isLoading ? <Loader /> : <DefaultState />;
+  }
+
+  if (status === 'error') return <ErrorState error={error} />;
+
+  if (status === 'success') {
+    if (Array.isArray(cars) && cars.length === 0) return <EmptyState />;
+
+    return (
       <>
-        <h2 className={styles.title}>{searchTerm}</h2>
+        <h2 className={styles.title}>{title}</h2>
         <CarList cars={cars} />
       </>
     );
   }
-
-  return <div className={styles.task2}>{content}</div>;
-};
-
-export default Task2;
+}
 
 function CarList(props: { cars: Car[] }) {
   return (
@@ -74,7 +90,7 @@ function Loader() {
 function ErrorState(props: { error: Error }) {
   return (
     <div className={styles.defaultState}>
-      <h2 className={styles.title}>Error: ${props.error.message}</h2>
+      <h2 className={styles.title}>Error: {props.error.message}</h2>
     </div>
   );
 }
